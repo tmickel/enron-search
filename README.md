@@ -20,6 +20,15 @@ To search the index:
 `./enron-search -search apple`
 
 You should see output like:
+![search1](./search-1.png)
+![search2](./search-2.png)
 
 Strategy:
-The index is a Trie-like data structure which lives entirely on disk
+The index is a Trie-like data structure which lives entirely on disk.
+
+All email files in the corpus are read in by the parser (main.go and email.go). Then, a directory structure is created which is the index.  The index has folders a-z representing one character in a word. Subdirectories are the second character, third character, and so on. When a word ends, a symlink is inserted into the directory tree, which links to the raw email file in the corpus.
+
+![index](./index.png)
+
+
+This makes for a very fast search and very little memory usage (almost negligible).

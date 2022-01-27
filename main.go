@@ -29,6 +29,7 @@ func main() {
 				if info.IsDir() {
 					return nil
 				}
+
 				data, err := os.ReadFile(path)
 				if err != nil {
 					return err
