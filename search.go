@@ -26,7 +26,8 @@ func search(term string) {
 	}
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		fmt.Println("no results :( try shortening?")
+		fmt.Println("no results :(")
+		return
 	}
 
 	files, err := ioutil.ReadDir(path)
