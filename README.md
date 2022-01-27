@@ -31,4 +31,6 @@ All email files in the corpus are read in by the parser (main.go and email.go). 
 ![index](./index.png)
 
 
-This makes for a very fast search and very little memory usage (almost negligible).
+This makes for a very fast search and very little memory usage (almost negligible). The search function (search.go) just traverses the directory structure and can output emails immediately.
+
+Note: I added a few restrictions on what is generated in the index (lowercase a-z, all special chars stripped out, numbers stripped out, and only 50 symlinks per search term). The index could be far less restricted, I bet (maybe all of these could be removed), but I didn't have enough time to make sure nothing breaks.
