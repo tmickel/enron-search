@@ -1,22 +1,40 @@
 package main
 
+import "strings"
+
 type Index struct {
-	data map[string]int
+	fileIds []string
+	trie    *TrieNode
 }
 
 func NewIndex() *Index {
 	return &Index{
-		data: make(map[string]int, 0),
+		fileIds: make([]string, 0),
+		trie:    NewTrie(),
 	}
 }
 
-func (ix *Index) Add(word string) {
-	for i := 1; i < len(word); i++ {
-		prefix := word[0:i]
-		if _, ok := ix.data[prefix]; ok {
-			ix.data[prefix]++
-		} else {
-			ix.data[prefix] = 1
-		}
+func (ix *Index) Add(em *Email) {
+	ix.fileIds = append(ix.fileIds, em.Filename)
+	fileId := len(ix.fileIds) - 1
+
+	fields := strings.Fields(em.Body)
+	for _, field := range fields {
+		ix.trie.Insert(field, fileId)
+	}
+
+	subjectFields := strings.Fields(em.Subject)
+	for _, field := range subjectFields {
+		ix.trie.Insert(field, fileId)
+	}
+
+	toFields := strings.Fields(em.To)
+	for _, field := range toFields {
+		ix.trie.Insert(field, fileId)
+	}
+
+	fromFields := strings.Fields(em.From)
+	for _, field := range fromFields {
+		ix.trie.Insert(field, fileId)
 	}
 }

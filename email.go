@@ -9,7 +9,6 @@ type Email struct {
 	From     string
 	To       string
 	Subject  string
-	Folder   string
 	Body     string
 }
 
@@ -37,9 +36,6 @@ func NewEmail(filename, raw string) *Email {
 			}
 			if k == "Subject" {
 				email.Subject = v
-			}
-			if k == "X-Folder" {
-				email.Folder = v
 			}
 			// skip other headers for now
 		} else {
